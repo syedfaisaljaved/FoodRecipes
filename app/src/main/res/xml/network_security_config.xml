@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<netowrk-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true"> static.food2fork.com</domain>
+    </domain-config>
+</netowrk-security-config>
