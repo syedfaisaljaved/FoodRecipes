@@ -30,6 +30,7 @@ public class RecipeActivty extends BaseActivity {
     private ScrollView mScrollView;
 
     private RecipeViewModel mRecipeViewModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,11 +62,24 @@ public class RecipeActivty extends BaseActivity {
             @Override
             public void onChanged(@Nullable Recipe recipe) {
                 if (recipe !=null){
-                    setrecipeProperties(recipe);
+                    if (recipe.getRecipe_id().equals(mRecipeViewModel.getRecipeId())){
+                        setrecipeProperties(recipe);
+                        mRecipeViewModel.setRetrieveRecipe(true);
+                    }
+                }
+            }
+        });
+
+        mRecipeViewModel.isRecipeRequestTimedOut().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean && !mRecipeViewModel.didRetrieveRecipe()){
+                    Log.d(TAG, "onChanged: timed out");
                 }
             }
         });
     }
+
 
     private void setrecipeProperties(Recipe recipe){
         if (recipe != null){
